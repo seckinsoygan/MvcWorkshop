@@ -1,20 +1,26 @@
-﻿using DataAccessLayer.Concrete.Repositories;
+﻿using BusinessLayer.Abstract;
+using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 
 namespace BusinessLayer.Concrete
 {
-    public class CategoryManager
+    public class CategoryManager : ICategoryService
     {
-        GenericRepository<Category> repository = new GenericRepository<Category>();
+        ICategoryDal _categoryDal;
+
+        public CategoryManager(ICategoryDal categoryDal)
+        {
+            _categoryDal = categoryDal;
+        }
 
         public List<Category> GetAll()
         {
-            return repository.GetAll();
+            return _categoryDal.GetAll();
         }
 
-        public void CategoryAddBl(Category category)
-        {
-            repository.Insert(category);
-        }
+        //public void CategoryAddBl(Category category)
+        //{
+        //    repository.Insert(category);
+        //}
     }
 }
