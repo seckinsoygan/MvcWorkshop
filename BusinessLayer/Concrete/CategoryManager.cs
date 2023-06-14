@@ -18,9 +18,9 @@ namespace BusinessLayer.Concrete
             return _categoryDal.GetAll();
         }
 
-        //public void CategoryAddBl(Category category)
-        //{
-        //    repository.Insert(category);
-        //}
+        public void CategoryAddBl(Category category)
+        {
+            repository.Insert(category);
+        }
     }
 }
