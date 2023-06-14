@@ -18,9 +18,14 @@ namespace BusinessLayer.Concrete
             return _categoryDal.GetAll();
         }
 
-        public void CategoryAddBl(Category category)
+        //public void CategoryAddBl(Category category)
+        //{
+        //    _categoryDal.Insert(category);
+        //}
+
+        public void CategoryAdd(Category category)
         {
-            repository.Insert(category);
+            _categoryDal.Insert(category);
         }
     }
 }
