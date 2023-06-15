@@ -39,5 +39,31 @@ namespace MvcWorkshop.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        public ActionResult EditWriter(int id)
+        {
+            var writerValue = wm.GetById(id);
+            return View(writerValue);
+        }
+        [HttpPost]
+        public ActionResult EditWriter(Writer writer)
+        {
+            WriterValidator validationRules = new WriterValidator();
+            ValidationResult result = validationRules.Validate(writer);
+            if (result.IsValid)
+            {
+                wm.WriterUpdate(writer);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
+        }
     }
 }
