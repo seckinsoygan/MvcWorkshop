@@ -40,7 +40,16 @@ namespace MvcWorkshop.Controllers
             hm.HeadingAdd(heading);
             return RedirectToAction("Index");
         }
+        public ActionResult EditHeading(int id)
+        {
+            List<SelectListItem> valueHeading = (from x in hm.GetAll()
+                                                 select new SelectListItem
+                                                 { Text = x.HeadingName, Value = x.HeadingId.ToString() })
+                                                 .ToList();
 
-
+            ViewBag.vlc = valueHeading;
+            var headingValue = hm.GetById(id);
+            return View(headingValue);
+        }
     }
 }
