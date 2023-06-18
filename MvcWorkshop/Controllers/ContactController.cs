@@ -14,5 +14,15 @@ namespace MvcWorkshop.Controllers
             var contactValues = cm.GetAll();
             return View(contactValues);
         }
+
+        public ActionResult GetContactDetails(int id)
+        {
+            var contactValues = cm.GetById(id);
+            return View(contactValues);
+        }
+        public PartialViewResult ContactDetailPartial()
+        {
+            return PartialView();
+        }
     }
 }
