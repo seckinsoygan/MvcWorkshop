@@ -20,6 +20,7 @@ namespace MvcWorkshop.Controllers
             var contactValues = cm.GetById(id);
             return View(contactValues);
         }
+
         public PartialViewResult ContactDetailPartial()
         {
             return PartialView();
