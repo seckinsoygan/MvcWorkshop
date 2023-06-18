@@ -21,6 +21,13 @@ namespace MvcWorkshop.Controllers
             return View(messageList);
         }
 
+        public ActionResult GetInboxMessageDetails(int id)
+        {
+            var values = mc.GetById(id);
+            return View(values);
+        }
+
+
         [HttpGet]
         public ActionResult NewMessage()
         {
