@@ -14,27 +14,27 @@ namespace BusinessLayer.Concrete
         }
         public void AboutAdd(About about)
         {
-            throw new NotImplementedException();
+            _aboutDal.Insert(about);
         }
 
         public void AboutDelete(About about)
         {
-            throw new NotImplementedException();
+            _aboutDal.Delete(about);
         }
 
         public void AboutUpdate(About about)
         {
-            throw new NotImplementedException();
+            _aboutDal.Update(about);
         }
 
         public List<About> GetAll()
         {
-            throw new NotImplementedException();
+            return _aboutDal.GetAll();
         }
 
         public About GetById(int id)
         {
-            throw new NotImplementedException();
+            return _aboutDal.GetById(x => x.AboutId == id);
         }
     }
 }
