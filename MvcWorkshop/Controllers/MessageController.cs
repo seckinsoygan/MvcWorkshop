@@ -2,6 +2,7 @@
 using BusinessLayer.ValidationRules;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MvcWorkshop.Controllers
@@ -9,7 +10,7 @@ namespace MvcWorkshop.Controllers
     public class MessageController : Controller
     {
         MessageManager mc = new MessageManager(new EfMessageDal());
-        MessageValidator validationRules = new MessageValidator();
+
         public IActionResult Inbox()
         {
             var messageList = mc.GetListInbox();
@@ -26,8 +27,11 @@ namespace MvcWorkshop.Controllers
             var values = mc.GetById(id);
             return View(values);
         }
-
-
+        public ActionResult GetSendboxMessageDetails(int id)
+        {
+            var values = mc.GetById(id);
+            return View(values);
+        }
         [HttpGet]
         public ActionResult NewMessage()
         {
@@ -37,6 +41,21 @@ namespace MvcWorkshop.Controllers
         [HttpPost]
         public ActionResult NewMessage(Message message)
         {
+            MessageValidator validationRules = new MessageValidator();
+            ValidationResult result = validationRules.Validate(message);
+            if (result.IsValid)
+            {
+                message.MessageDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                mc.MessageAdd(message);
+                return RedirectToAction("SendBox");
+            }
+            else
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
             return View();
         }
     }
